@@ -14,7 +14,7 @@ from flask_caching import Cache
 
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
-
+server = app.server
 # Set up cache configuration
 cache = Cache(app.server, config={
     'CACHE_TYPE': 'SimpleCache',  # For production, switch to Redis or other types
