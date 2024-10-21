@@ -1,0 +1,65 @@
+/* Styles for the collapsed accordion header */
+
+/* Custom styles for collapsed accordion header */
+.collapsed-accordion-header .accordion-button {
+    background-color: #274c77; /* Change to your desired color */
+    color: white; /* Optional: Change text color */
+    border: none;
+}
+
+/* Custom styles for the accordion header when expanded */
+.collapsed-accordion-header .accordion-button:not(.collapsed) {
+    background-color: #6096ba; /* Change to your desired color */
+    color: white; /* Optional: Change text color */
+}
+/* Specific target for collapsed accordion header */
+.collapsed-accordion-header2 .accordion-item .accordion-button {
+    background-color: #274c77; /* Change to your desired color */
+    color: white;
+    border: none;
+}
+/* Custom styles for the accordion header when expanded */
+.collapsed-accordion-header2 .accordion-button:not(.collapsed) {
+    background-color: #e7ecef; /* Change to your desired color */
+    color: #274c77; /* Optional: Change text color */
+}
+/* Specific target for collapsed accordion header */
+.collapsed-accordion-header3 .accordion-item .accordion-button {
+    background-color: #e7ecef; /* Change to your desired color */
+    color: #274c77;
+    border: none;
+}
+.collapsed-accordion-header3 .accordion-button:not(.collapsed) {
+    background-color: #274c77; /* Change to your desired color */
+    color: white;
+    border: none;
+}
+/* Style for active button */
+.active {
+    background-color: #007BFF;  /* Blue color for active */
+    color: white;               /* White text */
+    border: 2px solid #ccc;  /* Light grey border */
+    border-radius: 20px;  /* Rounded corners */
+    padding: 10px 20px;  /* Add some padding for size */
+    outline: none;
+    cursor: pointer;
+}
+
+.inactive {
+    background-color: #f1f1f1;  /* Light grey for inactive */
+    color: black;
+    border: 2px solid #ccc;  /* Light grey border */
+    border-radius: 20px;  /* Rounded corners */
+    outline: none;
+    cursor: pointer;
+    padding: 5px 10px;  /* Add some padding for size */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);  /* Light shading */
+    transition: all 0.3s ease;  /* Smooth transition for hover effects */
+}
+
+/* Optional: Add hover effects for better UX */
+button:hover {
+    background-color: #ddd;
+    color: black;
+    
+}
