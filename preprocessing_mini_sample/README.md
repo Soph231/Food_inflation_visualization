@@ -25,7 +25,7 @@ It uses a small synthetic dataset (Australia & New Zealand, 2001–2002) so the 
 ###  Option 1: Google Colab
 Open directly in Colab:
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<YOUR_USERNAME>/<YOUR_REPO>/blob/main/preprocessing_mini_sample/Inflation_data_preprocessing_pipeline_example.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Soph231/Food_inflation_visualization/blob/main/preprocessing_mini_sample/Inflation_data_preprocessing_pipeline_example.ipynb)
 
 At the top of the notebook, install dependencies:
 ```python
@@ -34,12 +34,21 @@ At the top of the notebook, install dependencies:
 Option 2: Binder
 
 Launch an interactive Jupyter session in your browser:
-https://mybinder.org/v2/gh/soawesomedigital/Inflation_Dashboard/main?filepath=preprocessing_mini_sample%2FInflation_data_preprocessing_pipeline_example.ipynb
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Soph231/Food_inflation_visualization/main?filepath=preprocessing_mini_sample%2FInflation_data_preprocessing_pipeline_example.ipynb)
 
-Option 3: Run Locally
+### Option 3: Run Locally
 
-Clone the repo and run the notebook:
-git clone https://github.com/<YOUR_USERNAME>/<YOUR_REPO>.git
-cd <YOUR_REPO>/preprocessing_mini_sample
+You can also run the notebook on your own machine:
+
+```bash
+# Clone the full repository
+git clone https://github.com/Soph231/Food_inflation_visualization.git
+
+# Move into the mini sample subfolder
+cd Food_inflation_visualization/preprocessing_mini_sample
+
+# Install required dependencies
 pip install -r requirements.txt
+
+# Launch Jupyter Notebook
 jupyter notebook Inflation_data_preprocessing_pipeline_example.ipynb
