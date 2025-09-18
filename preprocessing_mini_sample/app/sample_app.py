@@ -22,6 +22,9 @@ cache = Cache(app.server, config={
     'CACHE_DEFAULT_TIMEOUT': 300  # Cache timeout (in seconds)
 })
 
+import warnings
+warnings.filterwarnings("ignore", category=FutureWarning, message=".*observed=False is deprecated.*")
+
 # ---- Paths & data bootstrap for sample repo ----
 from pathlib import Path
 BASE = Path(__file__).resolve().parent # → preprocessing_mini_sample/app
@@ -835,6 +838,17 @@ def update_category_graph_top_years_and_range(selected_category, selected_year):
     )
 
 
+if __name__ == "__main__":
+    import os, argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--host", default=os.environ.get("HOST", "0.0.0.0"))
+    parser.add_argument("--port", type=int, default=int(os.environ.get("PORT", "8050")))
+    parser.add_argument("--debug", action="store_true")
+    args = parser.parse_args()
 
-if __name__ == '__main__':
-    app.run_server(debug=True)
+    print(f"Starting Dash on http://{args.host}:{args.port} (debug={args.debug})")
+    # Dash ≥2.17
+    app.run(host=args.host, port=args.port, debug=args.debug)
+
+#if __name__ == '__main__':
+#    app.run_server(debug=True)
