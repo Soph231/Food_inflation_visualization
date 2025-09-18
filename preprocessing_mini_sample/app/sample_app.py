@@ -95,7 +95,57 @@ DEFAULT_YEAR = max(YEARS)
 # ---- end bootstrap ----
 
 # Helper function to create the category bar plot
-    
+def create_category_bar_plot():
+    custom_order = CATEGORY_ORDER
+
+    # Counts by category (ensure full set + integers)
+    category_counts = (
+        country_year_mean['Inflation_Category']
+        .value_counts(dropna=False)
+        .reindex(custom_order)
+        .fillna(0)
+        .astype(int)
+    )
+
+    # Min/Max per category (explicit observed=False to keep current behavior)
+    inflation_ranges = (
+        country_year_mean
+        .groupby('Inflation_Category', observed=False)['Value']
+        .agg(['min', 'max'])
+        .reindex(custom_order)
+    )
+
+    # Format labels safely
+    def _fmt(v):
+        try:
+            return f"{float(v):.1f}%"
+        except Exception:
+            return "N/A"
+
+    category_labels = [
+        f"{cat}\n({_fmt(inflation_ranges.loc[cat, 'min'])} - {_fmt(inflation_ranges.loc[cat, 'max'])})"
+        for cat in custom_order
+    ]
+
+    fig = px.bar(
+        x=category_labels,
+        y=category_counts.values,
+        labels={'x': '', 'y': 'Number of Instances'},
+        title='Total Frequency of Inflation Categories (2001–2024)',
+        text=category_counts.values
+    )
+    fig.update_layout(
+        yaxis_title='Number of Instances',
+        title={'x': 0.5, 'y': 0.95},
+        margin=dict(l=50, r=50, t=40, b=80),
+        yaxis_title_standoff=10,
+    )
+    fig.update_xaxes(tickangle=45, automargin=True)
+    fig.update_yaxes(automargin=True)
+    return fig
+
+
+'''    
 def create_category_bar_plot():
     # Define the custom order for the inflation categories
     custom_order = [
@@ -145,9 +195,22 @@ def create_category_bar_plot():
     fig.update_xaxes(tickangle=45, automargin=True)  # Rotate the x-axis labels for better readability
     fig.update_yaxes(automargin=True)  # Ensure enough space for the y-axis label
     return fig
+'''
 
+# helper function for continent plot
+# helper table for continent plot (global, not year-dependent)
+continent_inflation_periods_counts = (
+    country_year_mean
+        .groupby(['Region', 'Inflation_Category'], observed=False)
+        .size()
+        .unstack(fill_value=0)
+        .reindex(columns=CATEGORY_ORDER, fill_value=0)
+)
 
-# helper function for continent plot   
+inflation_categories = CATEGORY_ORDER  # reuse same order
+colors = ['#1f77b4', '#53b5a3', '#2ca02c', '#98df8a', '#ffcc00', '#ff7f0e', '#d62728', '#7F00FF']
+
+'''
 continent_inflation_periods_counts = country_year_mean.groupby(['Region', 'Inflation_Category']).size().unstack(fill_value=0)
 #continent_inflation_periods_counts = continent_inflation_periods_counts[['Deflation', 'Very Low Inflation', 'Target Inflation', 'Low Inflation', 'Moderate Inflation', 'High Inflation', 'Very High Inflation', 'Hyperinflation']]
 continent_inflation_periods_counts = continent_inflation_periods_counts.reindex(
@@ -155,7 +218,7 @@ continent_inflation_periods_counts = continent_inflation_periods_counts.reindex(
 )
 inflation_categories = ['Deflation', 'Very Low Inflation','Target Inflation', 'Low Inflation', 'Moderate Inflation', 'High Inflation', 'Very High Inflation', 'Hyperinflation']
 colors = ['#1f77b4', '#53b5a3', '#2ca02c', '#98df8a', '#ffcc00', '#ff7f0e', '#d62728', '#7F00FF']
-   
+'''   
     
 def update_stacked_barplot():  # Add parameters as needed
     # Create a DataFrame to plot using Plotly
