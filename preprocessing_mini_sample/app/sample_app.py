@@ -623,7 +623,7 @@ def set_button_style(map_clicks, bar_clicks):
     # Default: no button is active
     return 'active', 'inactive'
 
-
+'''
 # Callback to store the active plot based on button clicks
 @app.callback(
     Output('active-plot', 'data'),
@@ -660,9 +660,45 @@ def update_plot_area(year, selected_category, active_plot):
         return dcc.Graph(figure=update_stacked_barplot())
 
     return update_map(year, selected_category)  # Default to map
+'''
+    
+ from dash import ctx  # Dash >= 2.7
 
-    
-    
+@app.callback(
+    Output('active-plot', 'data'),
+    Input('btn-map', 'n_clicks'),
+    Input('btn-bar', 'n_clicks'),
+    prevent_initial_call=False,
+)
+def update_active_plot(map_clicks, bar_clicks):
+    # default on initial load
+    if ctx.triggered_id is None:
+        return 'map'
+    if ctx.triggered_id == 'btn-map':
+        return 'map'
+    if ctx.triggered_id == 'btn-bar':
+        return 'bar'
+    return 'map'
+
+@app.callback(
+    Output('plot-area', 'children'),
+    Input('year-dropdown', 'value'),
+    Input('category-dropdown', 'value'),
+    Input('active-plot', 'data'),
+)
+def update_plot_area(year, selected_category, active_plot):
+    year = year or DEFAULT_YEAR
+
+    if active_plot == 'map':
+        return update_map(year, selected_category)
+
+    if active_plot == 'bar':
+        fig = update_stacked_barplot()  # your global, year-independent table
+        return dcc.Graph(figure=fig, config={'displayModeBar': False})
+
+    # fallback
+    return update_map(year, selected_category)
+
 
 
 
