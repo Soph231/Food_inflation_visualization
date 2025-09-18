@@ -209,7 +209,38 @@ continent_inflation_periods_counts = (
 
 inflation_categories = CATEGORY_ORDER  # reuse same order
 colors = ['#1f77b4', '#53b5a3', '#2ca02c', '#98df8a', '#ffcc00', '#ff7f0e', '#d62728', '#7F00FF']
+def update_stacked_barplot():
+    df = continent_inflation_periods_counts.reset_index().copy()
 
+    # Only include columns that exist; coerce to numeric just in case
+    y_cols = [c for c in inflation_categories if c in df.columns]
+    for c in y_cols:
+        df[c] = pd.to_numeric(df[c], errors='coerce').fillna(0)
+
+    if not y_cols or df[y_cols].to_numpy().sum() == 0:
+        return px.bar(title="No continent counts to display.")
+
+    # Optional consistent Region order if your data matches these names
+    region_order = ["Africa", "Americas", "Asia", "Europe", "Oceania", "Unknown"]
+    if set(df["Region"].unique()).issubset(set(region_order)):
+        df["Region"] = pd.Categorical(df["Region"], region_order, ordered=True)
+        df = df.sort_values("Region")
+
+    fig = px.bar(
+        df,
+        x='Region',
+        y=y_cols,
+        title='Total Distribution of Inflation Types',
+        labels={'value': 'Number of Countries', 'Region': 'Continent'},
+        color_discrete_sequence=colors[:len(y_cols)]
+    )
+    fig.update_layout(
+        barmode='stack',
+        legend_title_text='Inflation Type',
+        xaxis_title='Continent',
+        yaxis_title='Number of Countries'
+    )
+    return fig
 '''
 continent_inflation_periods_counts = country_year_mean.groupby(['Region', 'Inflation_Category']).size().unstack(fill_value=0)
 #continent_inflation_periods_counts = continent_inflation_periods_counts[['Deflation', 'Very Low Inflation', 'Target Inflation', 'Low Inflation', 'Moderate Inflation', 'High Inflation', 'Very High Inflation', 'Hyperinflation']]
@@ -217,8 +248,7 @@ continent_inflation_periods_counts = continent_inflation_periods_counts.reindex(
     columns=CATEGORY_ORDER, fill_value=0
 )
 inflation_categories = ['Deflation', 'Very Low Inflation','Target Inflation', 'Low Inflation', 'Moderate Inflation', 'High Inflation', 'Very High Inflation', 'Hyperinflation']
-colors = ['#1f77b4', '#53b5a3', '#2ca02c', '#98df8a', '#ffcc00', '#ff7f0e', '#d62728', '#7F00FF']
-'''   
+colors = ['#1f77b4', '#53b5a3', '#2ca02c', '#98df8a', '#ffcc00', '#ff7f0e', '#d62728', '#7F00FF']   
     
 def update_stacked_barplot():  # Add parameters as needed
     # Create a DataFrame to plot using Plotly
@@ -238,7 +268,7 @@ def update_stacked_barplot():  # Add parameters as needed
                       yaxis_title='Number of Countries')
 
     return fig
-    
+'''    
 # Helper function to generate word cloud from frequencies
 def generate_word_cloud(frequencies):
     wordcloud = WordCloud(width=800, height=400, background_color="white").generate_from_frequencies(frequencies)
