@@ -12,6 +12,7 @@ import base64
 from collections import Counter
 from flask_caching import Cache
 from pandas.api.types import CategoricalDtype
+from dash import ctx  # Dash >= 2.7
 
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
@@ -661,8 +662,6 @@ def update_plot_area(year, selected_category, active_plot):
 
     return update_map(year, selected_category)  # Default to map
 '''
-    
- from dash import ctx  # Dash >= 2.7
 
 @app.callback(
     Output('active-plot', 'data'),
