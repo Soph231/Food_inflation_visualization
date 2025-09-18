@@ -28,7 +28,17 @@ BASE = Path(__file__).resolve().parent # → preprocessing_mini_sample/app
 ROOT = BASE.parent # → preprocessing_mini_sample
 DATA_DIR = ROOT / "sample_data"
 CSV_PATH = DATA_DIR / "country-year_mean.csv"
-
+# Canonical category order your app expects
+CATEGORY_ORDER = [
+    "Deflation",
+    "Very Low Inflation",
+    "Target Inflation",
+    "Low Inflation",
+    "Moderate Inflation",
+    "High Inflation",
+    "Very High Inflation",
+    "Hyperinflation",
+]
 # Map common variants → canonical labels (extend as needed)
 CATEGORY_ALIASES = {
     "very low": "Very Low Inflation",
