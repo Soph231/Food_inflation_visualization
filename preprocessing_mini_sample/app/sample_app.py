@@ -596,7 +596,7 @@ def add_custom_legend(m, category_colors):
     m.get_root().html.add_child(folium.Element(legend_html))
 
 
-
+'''
 def update_map(year, selected_category):
     # Filter data based on the selected year and category
     filtered_data = country_year_mean[country_year_mean['Year'] == year]
@@ -660,6 +660,98 @@ def update_map(year, selected_category):
     return html.Div([
         html.Div(html.Iframe(srcDoc=map_html, width='100%', height='300px')),
     ], style={'padding-bottom': '0px'})
+'''
+def update_map(year, selected_category):
+    import json
+
+    # 1) Filter data for the selected year (and category if set)
+    filtered_data = country_year_mean[country_year_mean['Year'] == year].copy()
+    if selected_category:
+        filtered_data = filtered_data[filtered_data['Inflation_Category'] == selected_category]
+
+    # If nothing to show, still render a base map
+    m = folium.Map(location=[20, 0], zoom_start=2, tiles="cartodbpositron")
+
+    # 2) Build lookups from ISO3 -> category/value
+    iso_col = "Area Code (ISO3)"
+    if iso_col not in filtered_data.columns:
+        return html.Div("Missing ISO3 column in data.", style={"color": "crimson"})
+
+    value_col = next((c for c in ["Annual_Mean", "Value", "Inflation"] if c in filtered_data.columns), None)
+
+    cat_by_iso = dict(
+        zip(filtered_data[iso_col].astype(str),
+            filtered_data["Inflation_Category"].astype(str))
+    )
+    val_by_iso = dict(
+        zip(filtered_data[iso_col].astype(str),
+            (filtered_data[value_col].tolist() if value_col else [None] * len(filtered_data)))
+    )
+
+    # 3) Helper to extract ISO3 from each feature's properties
+    def extract_iso3(props):
+        return (
+            props.get("combined_iso_a3")
+            or props.get("iso_a3")
+            or props.get("ISO_A3")
+            or props.get("ADM0_A3")
+            or props.get("A3")
+            or props.get("iso3")
+            or props.get("Area Code (ISO3)")
+        )
+
+    # 4) Load GeoJSON as JSON and enrich feature props
+    geojson_path = DATA_DIR / f"Inflation_{year}.geojson"
+    if not geojson_path.exists():
+        return html.Div(f"GeoJSON not found: {geojson_path}", style={"color": "crimson"})
+
+    try:
+        with open(geojson_path, "r", encoding="utf-8") as f:
+            gj = json.load(f)
+    except Exception as e:
+        return html.Div(f"Failed to read GeoJSON: {e}", style={"color": "crimson"})
+
+    for feat in gj.get("features", []):
+        props = feat.get("properties", {}) or {}
+        iso3 = extract_iso3(props)
+        iso3 = str(iso3) if iso3 is not None else None
+
+        cat = cat_by_iso.get(iso3)
+        val = val_by_iso.get(iso3)
+
+        # Ensure consistent tooltip fields exist
+        props["Category"] = cat if cat is not None else None
+        props["Value"] = float(val) if (val is not None and pd.notna(val)) else None
+        props["name"] = props.get("name") or props.get("NAME") or props.get("ADMIN") or props.get("name_long") or ""
+        props["iso_a3"] = props.get("iso_a3") or props.get("ISO_A3") or props.get("ADM0_A3") or (iso3 or "")
+
+        feat["properties"] = props
+
+    # 5) Add styled GeoJSON (color by category)
+    folium.GeoJson(
+        gj,
+        style_function=lambda feature: {
+            "fillColor": category_colors.get(feature["properties"].get("Category"), "#808080"),
+            "color": "white",
+            "weight": 0.5,
+            "fillOpacity": 0.75,
+        },
+        highlight_function=lambda feature: {"weight": 2, "color": "blue"},
+        tooltip=folium.GeoJsonTooltip(
+            fields=["name", "iso_a3", "Category", "Value"],
+            aliases=["Country", "ISO3", "Category", "Value"],
+            localize=True,
+        ),
+    ).add_to(m)
+
+    # Optional: add_custom_legend(m, category_colors)
+
+    # 6) Return the map as HTML (same pattern you use)
+    map_html = m._repr_html_()
+    return html.Div(
+        html.Iframe(srcDoc=map_html, width="100%", height="320px", style={"border": "0"}),
+        style={"padding-bottom": "0px"},
+    )
 
         
 # Global insights
