@@ -212,7 +212,7 @@ inflation_categories = CATEGORY_ORDER  # reuse same order
 colors = ['#1f77b4', '#53b5a3', '#2ca02c', '#98df8a', '#ffcc00', '#ff7f0e', '#d62728', '#7F00FF']
 def update_stacked_barplot():
     df = continent_inflation_periods_counts.reset_index().copy()
-	print(continent_inflation_periods_counts.head()) #for debug
+    print(continent_inflation_periods_counts.head()) #for debug
 
     # Only include columns that exist; coerce to numeric just in case
     y_cols = [c for c in inflation_categories if c in df.columns]
