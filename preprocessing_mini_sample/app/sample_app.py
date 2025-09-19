@@ -1062,15 +1062,19 @@ def update_category_graph_top_years_and_range(selected_category, selected_year):
 
 if __name__ == "__main__":
     import os, argparse
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--host", default=os.environ.get("HOST", "0.0.0.0"))
     parser.add_argument("--port", type=int, default=int(os.environ.get("PORT", "8050")))
-    parser.add_argument("--debug", action="store_true")
+    parser.add_argument("--debug", action="store_true", help="Enable Dash debug (dev tools). Avoid in Colab.")
     args = parser.parse_args()
 
-    print(f"Starting Dash on http://{args.host}:{args.port} (debug={args.debug})")
-    # Dash ≥2.17
-    app.run(host=args.host, port=args.port, debug=args.debug)
+    # In Colab / headless envs: force-disable the reloader even if debug=True sneaks in
+    use_reloader = False
+
+    print(f"Starting Dash on http://{args.host}:{args.port} (debug={args.debug}, reloader={use_reloader})")
+    # Dash ≥ 2.17
+    app.run(host=args.host, port=args.port, debug=args.debug, use_reloader=use_reloader)
 
 #if __name__ == '__main__':
 #    app.run_server(debug=True)
