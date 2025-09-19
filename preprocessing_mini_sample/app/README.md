@@ -21,6 +21,7 @@ You can run the app **locally**, on **Binder**, or on **Google Colab**. The app 
 cd preprocessing_mini_sample/app
 ```
 2. **Recommended: Create a virtual environment**
+ 
  macOS / Linux:
 ```bash
 python3 -m venv .venv
