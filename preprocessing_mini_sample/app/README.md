@@ -49,15 +49,15 @@ Binder lets you run the app entirely in the cloud, no install needed.
 1. **Click the Binder badge below.**
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Soph231/Food_inflation_visualization/HEAD?labpath=preprocessing_mini_sample%2Fapp%2FRun_App_in_Binder.ipynb)
 
+2. **Wait while Binder builds your environment (this can take 1–5 minutes the first time).**
+Once ready, it will automatically proxy port 8050 and open the Dash app in your browser.
+3. Run the codes in the note book. After the app is started successfuly server links will be provided, copy and paste
+the default http://127.0.0.1:8050/
+
 ### C) Run on Google Colab
 Open the Run_App_in_Colab.ipynb by following the link below, run the cells to get a public app server
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Soph231/Food_inflation_visualization/blob/main/preprocessing_mini_sample/app/Run_App_in_Colab.ipynb)
 
-2. **Wait while Binder builds your environment (this can take 1–5 minutes the first time).**
-Once ready, it will automatically proxy port 8050 and open the Dash app in your browser.
-
-4. **If it doesn’t auto-open, check the URL path — it should look like:**
-https://mybinder.org/v2/gh/Soph231/Food_inflation_visualization/HEAD?urlpath=proxy/8050/
 ##Note:
 Binder sessions are temporary (they reset when you close the tab or after ~10 minutes idle). For quick demos this is fine — for longer work, use Colab or run locally.
 ***App Default behavior***
