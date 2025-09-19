@@ -17,7 +17,7 @@ preprocessing_mini_sample/
 
 ## ️ How to Run the app
 
-You can run the app **locally**, on **Google Colab**, or on **Binder**. The app expects the data in `../sample_data/` relative to `app/app.py`.
+You can run the app **locally**, on **Binder**, or on **Google Colab**. The app expects the data in `../sample_data/` relative to `app/app.py`.
 
 ---
 
@@ -44,12 +44,15 @@ python sample_app.py
 5) **Open the app**
 The app will start a local server (default http://127.0.0.1:8050/).
 Open this link in your browser to interact with the dashboard.
-### B) Run on Google Colab
+### B) Run on Binder
+Binder lets you run the app entirely in the cloud, no install needed.
+1. **Click the Binder badge below.**
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Soph231/Food_inflation_visualization/HEAD?labpath=preprocessing_mini_sample%2Fapp%2FRun_App_in_Binder.ipynb)
+
+### C) Run on Google Colab
 Open the Run_App_in_Colab.ipynb by following the link below, run the cells to get a public app server
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Soph231/Food_inflation_visualization/blob/main/preprocessing_mini_sample/app/Run_App_in_Colab.ipynb)
-###C) Run on Binder
-Binder lets you run the app entirely in the cloud, no install needed.
-1. **Click the Binder badge above.**
+
 2. **Wait while Binder builds your environment (this can take 1–5 minutes the first time).**
 Once ready, it will automatically proxy port 8050 and open the Dash app in your browser.
 
