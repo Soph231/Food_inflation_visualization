@@ -1,12 +1,12 @@
 # Mini Inflation Data Preprocessing Sample
 
 This folder contains a **mini, end-to-end demo** of the data preprocessing pipeline used in the Inflation Dashboard.  
-It uses a small synthetic dataset (Australia & New Zealand, 2001–2002) so the notebook can run quickly and reproducibly on GitHub, Colab, or Binder.
+It uses a small synthetic dataset (Australia & New Zealand, 2001–2002) so the notebook can run quickly and reproducibly Locally, Binder, or Colab.
 
 ---
 
-## 📂 Folder Structure
-<pre>'''preprocessing_mini_sample/
+## Folder Structure
+preprocessing_mini_sample/
 ├─ data_raw/
 │ ├─ sample_data.csv # sample monthly data (2 countries × 2 years × 12 months each)
 │ └─ custom.geo.json # minimal GeoJSON (AUS + NZ polygons)
@@ -18,7 +18,7 @@ It uses a small synthetic dataset (Australia & New Zealand, 2001–2002) so the 
 
 ├─ Inflation_data_preprocessing_pipeline_example.ipynb # notebook (data prep, EDA plots, Folium map)
 ├─ requirements.txt # Python dependencies
-└─ README.md # this file'''<pre>
+└─ README.md # this file
 
 ## How to Run
 
@@ -30,7 +30,7 @@ Open directly in Colab:
 At the top of the notebook, install dependencies:
 ```python
 !pip install -r requirements.txt
-
+```
 Option 2: Binder
 
 Launch an interactive Jupyter session in your browser:
@@ -43,12 +43,17 @@ You can also run the notebook on your own machine:
 ```bash
 # Clone the full repository
 git clone https://github.com/Soph231/Food_inflation_visualization.git
-
+```
 # Move into the mini sample subfolder
+```bash
 cd Food_inflation_visualization/preprocessing_mini_sample
-
+```
 # Install required dependencies
+```bash
 pip install -r requirements.txt
-
+```
 # Launch Jupyter Notebook
+```bash
 jupyter notebook Inflation_data_preprocessing_pipeline_example.ipynb
+```
+Run the code in each cell.
