@@ -553,7 +553,7 @@ app.layout = html.Div([
 
         # Footer with copyright
     html.Div(
-        "© 2024 Sophia",
+        "© 2024 Sophia Brauning",
         style={
             'position': 'fixed',  # Keeps it at the bottom
             'bottom': '0',  # Aligns at the bottom of the page
