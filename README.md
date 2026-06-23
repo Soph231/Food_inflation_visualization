@@ -53,12 +53,12 @@ The dashboard uses annual country-level food inflation estimates derived from mo
 A smaller reproducible example demonstrating the preprocessing workflow and a simplified dashboard is available in the [Mini Workflow Inflation Visualization repository](https://github.com/Soph231/Mini_workflow_Inflation_visualization). The mini version includes sample data and can be run locally, in Google Colab, or in Binder.
 
 ## Technologies
-Python
-Pandas
-Plotly
-Dash
-GeoJSON
-NumPy
+- Python
+- Pandas
+- Plotly
+- Dash
+- GeoJSON
+- NumPy
 
 ## License
 This repository is provided for educational and demonstration purposes.
