@@ -1,5 +1,0 @@
-pandas
-numpy
-matplotlib
-country_converter
-folium
