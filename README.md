@@ -1,5 +1,5 @@
 # Global Food Inflation Dashboard (2001–2024)
-
+![Dashboard Screenshot](https://github.com/Soph231/Food_inflation_visualization/blob/main/screenshots/Inflation_dashboard_screenshot_in_render.png)
 An interactive dashboard for exploring global food inflation trends from 2001 to 2024. The application is built with Python and Dash and combines annual country-level inflation estimates with geographic data to provide interactive map and chart views.
 
 Repository Structure
